@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BroswerRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <BroswerRouter>
+  <BrowserRouter>
     <App />
-  </BroswerRouter>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

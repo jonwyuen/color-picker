@@ -20,7 +20,7 @@ const Palette = ({ palette }) => {
         changeFormat={changeFormat}
       />
       <div className="Palette-colors">{colorBoxes}</div>
-      <footer claassName="Palette-footer">
+      <footer className="Palette-footer">
         {paletteName}
         <span className="emoji">{emoji}</span>
       </footer>

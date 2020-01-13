@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Slider from "rc-slider";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -22,7 +23,7 @@ const Navbar = ({ level, changeLevel, changeFormat }) => {
   return (
     <nav className="Navbar">
       <div className="logo">
-        <a href="#">Color Picker</a>
+        <Link to="/">Color Picker</Link>
       </div>
       <div className="slider-container">
         <span>Level: {level}</span>
