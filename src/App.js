@@ -12,7 +12,9 @@ const App = () => {
       <Route
         exact
         path="/"
-        render={() => <PaletteList palettes={seedColors} />}
+        render={routeProps => (
+          <PaletteList {...routeProps} palettes={seedColors} />
+        )}
       />
       <Route
         exact
@@ -24,9 +26,6 @@ const App = () => {
         )}
       />
     </Switch>
-    // <div className="App">
-    //   <Palette palette={generatePalette(seedColors[4])} />
-    // </div>
   );
 };
 
