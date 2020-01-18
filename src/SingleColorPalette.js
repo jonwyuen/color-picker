@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import Navbar from "./Navbar";
 import ColorBox from "./ColorBox";
+import PaletteFooter from "./PaletteFooter";
 
 const SingleColorPalette = ({ palette, colorId }) => {
+  const [format, setFormat] = useState("hex");
+  const { paletteName, emoji } = palette;
   const gatherShades = (palette, colorToFilterBy) => {
     let shades = [];
     let allColors = palette.colors;
@@ -15,18 +19,21 @@ const SingleColorPalette = ({ palette, colorId }) => {
 
   const shades = gatherShades(palette, colorId);
 
+  const changeFormat = val => setFormat(val);
+
   const colorBoxes = shades.map(color => (
     <ColorBox
       key={color.id}
       name={color.name}
-      background={color.hex}
+      background={color[format]}
       showLink={false}
     />
   ));
   return (
     <div className="Palette">
-      <h1>Single Color Palette</h1>
+      <Navbar changeFormat={changeFormat} showingAllColors={false} />
       <div className="Palette-colors">{colorBoxes}</div>
+      <PaletteFooter paletteName={paletteName} emoji={emoji} />
     </div>
   );
 };
