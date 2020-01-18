@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import ColorBox from "./ColorBox";
 import PaletteFooter from "./PaletteFooter";
 
 const SingleColorPalette = ({ palette, colorId }) => {
   const [format, setFormat] = useState("hex");
-  const { paletteName, emoji } = palette;
+  const { paletteName, emoji, id } = palette;
   const gatherShades = (palette, colorToFilterBy) => {
     let shades = [];
     let allColors = palette.colors;
@@ -23,16 +24,23 @@ const SingleColorPalette = ({ palette, colorId }) => {
 
   const colorBoxes = shades.map(color => (
     <ColorBox
-      key={color.id}
+      key={color.name}
       name={color.name}
       background={color[format]}
       showLink={false}
     />
   ));
   return (
-    <div className="Palette">
+    <div className="SingleColorPalette Palette">
       <Navbar changeFormat={changeFormat} showingAllColors={false} />
-      <div className="Palette-colors">{colorBoxes}</div>
+      <div className="Palette-colors">
+        {colorBoxes}
+        <div className="go-back ColorBox">
+          <Link to={`/palette/${id}`} className="back-button">
+            GO BACK
+          </Link>
+        </div>
+      </div>
       <PaletteFooter paletteName={paletteName} emoji={emoji} />
     </div>
   );
