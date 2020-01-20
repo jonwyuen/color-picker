@@ -6,6 +6,18 @@ import chroma from "chroma-js";
 import "./ColorBox.css";
 
 const useStyles = makeStyles(props => ({
+  ColorBox: {
+    width: "20%",
+    height: props => (props.showingFullPalette ? "25%" : "50%"),
+    margin: "0 auto",
+    display: "inline-block",
+    position: "relative",
+    cursor: "pointer",
+    marginBottom: "-3.5px",
+    "&:hover button": {
+      opacity: 1
+    }
+  },
   copyText: {
     color: props =>
       chroma(props.background).luminance() >= 0.7 ? "rgba(0,0,0,0.6)" : "white"
@@ -27,21 +39,40 @@ const useStyles = makeStyles(props => ({
     textAlign: "center",
     lineHeight: "30px",
     textTransform: "uppercase"
+  },
+  copyButton: {
+    width: "100px",
+    height: "30px",
+    position: "absolute",
+    display: "inline-block",
+    top: "50%",
+    left: "50%",
+    marginLeft: "-50px",
+    marginTop: "-15px",
+    textAlign: "center",
+    outline: "none",
+    background: "rgba(255,255,255,0.3)",
+    fontSize: "1rem",
+    lineHeight: "30px",
+    color: props =>
+      chroma(props.background).luminance() >= 0.7 ? "rgba(0,0,0,0.6)" : "white",
+    textTransform: "uppercase",
+    border: "none",
+    textDecoration: "none",
+    opacity: 0
   }
 }));
 
-const ColorBox = ({ background, name, id, paletteId, showLink }) => {
-  const classes = useStyles({ background });
+const ColorBox = ({ background, name, id, paletteId, showingFullPalette }) => {
+  const classes = useStyles({ background, showingFullPalette });
   const [copied, setCopied] = useState(false);
-  const isDarkColor = chroma(background).luminance() <= 0.08;
-  const isLightColor = chroma(background).luminance() >= 0.7;
 
   useEffect(() => {
     if (copied) setTimeout(() => setCopied(false), 1500);
   }, [copied]);
   return (
     <CopyToClipboard text={background} onCopy={() => setCopied(true)}>
-      <div style={{ background }} className="ColorBox">
+      <div style={{ background }} className={classes.ColorBox}>
         <div
           style={{ background }}
           className={`copy-overlay ${copied && "show"}`}
@@ -54,11 +85,9 @@ const ColorBox = ({ background, name, id, paletteId, showLink }) => {
           <div className="box-content">
             <span className={classes.colorName}>{name}</span>
           </div>
-          <button className={`copy-button ${isLightColor && "dark-text"}`}>
-            Copy
-          </button>
+          <button className={classes.copyButton}>Copy</button>
         </div>
-        {showLink && (
+        {showingFullPalette && (
           <Link
             to={`/palette/${paletteId}/${id}`}
             onClick={e => e.stopPropagation()}
