@@ -1,36 +1,6 @@
 import React from "react";
 import MiniPalette from "./MiniPalette";
-import { makeStyles } from "@material-ui/styles";
-
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: "blue",
-    height: "100vh",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center"
-  },
-  container: {
-    width: "50%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    flexWrap: "wrap"
-  },
-  nav: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-    color: "white"
-  },
-  palettes: {
-    boxSizing: "border-box",
-    width: "100%",
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 30%)",
-    gridGap: "5%"
-  }
-});
+import useStyles from "./styles/PaletteListStyles";
 
 const PaletteList = ({ palettes, history }) => {
   const classes = useStyles();
@@ -44,6 +14,7 @@ const PaletteList = ({ palettes, history }) => {
         <div className={classes.palettes}>
           {palettes.map(palette => (
             <MiniPalette
+              key={palette.id}
               goToPalette={() => goToPalette(palette.id)}
               {...palette}
             />
