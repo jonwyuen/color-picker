@@ -1,20 +1,8 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/styles";
+import useStyles from "./styles/PaletteStyles";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
-import "./Palette.css";
-
-const useStyles = makeStyles({
-  Palette: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column"
-  },
-  colors: {
-    height: "90%"
-  }
-});
 
 const Palette = ({ palette }) => {
   const [level, setLevel] = useState(500);
