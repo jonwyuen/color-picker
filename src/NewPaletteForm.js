@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewPaletteForm = () => {
+const NewPaletteForm = ({ savePalette, history }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [currentColor, setCurrentColor] = useState("teal");
@@ -94,6 +94,17 @@ const NewPaletteForm = () => {
   };
 
   const handleNameChange = e => setnewName(e.target.value);
+
+  const handleSavePalette = () => {
+    let newName = "New Test Palette";
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g, "-"),
+      colors
+    };
+    savePalette(newPalette);
+    history.push("/");
+  };
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", value =>
@@ -126,6 +137,13 @@ const NewPaletteForm = () => {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleSavePalette}
+          >
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
