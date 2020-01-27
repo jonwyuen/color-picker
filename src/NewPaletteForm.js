@@ -109,6 +109,9 @@ const NewPaletteForm = ({ palettes, savePalette, history }) => {
     history.push("/");
   };
 
+  const removeColor = colorName =>
+    setColors(colors.filter(color => color.name !== colorName));
+
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", value =>
       colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
@@ -131,6 +134,7 @@ const NewPaletteForm = ({ palettes, savePalette, history }) => {
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
@@ -160,7 +164,7 @@ const NewPaletteForm = ({ palettes, savePalette, history }) => {
                 "Palette name must be unique"
               ]}
             />
-            <Button variant="contained" color="secondary" type="submit">
+            <Button variant="contained" color="primary" type="submit">
               Save Palette
             </Button>
           </ValidatorForm>
@@ -223,7 +227,12 @@ const NewPaletteForm = ({ palettes, savePalette, history }) => {
       >
         <div className={classes.drawerHeader} />
         {colors.map(color => (
-          <DraggableColorBox color={color.color} name={color.name} />
+          <DraggableColorBox
+            color={color.color}
+            name={color.name}
+            id={color.name}
+            removeColor={removeColor}
+          />
         ))}
       </main>
     </div>

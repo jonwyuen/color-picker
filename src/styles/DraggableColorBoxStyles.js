@@ -8,10 +8,10 @@ export default makeStyles({
     display: "inline-block",
     position: "relative",
     cursor: "pointer",
-    marginBottom: "-3.5px",
+    marginBottom: "-5px",
     "&:hover svg": {
       color: "white",
-      trnasform: "scale(1.5)"
+      transform: "scale(1.5)"
     }
   },
   boxContent: {
