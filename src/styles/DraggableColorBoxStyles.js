@@ -9,6 +9,8 @@ export default makeStyles({
     position: "relative",
     cursor: "pointer",
     marginBottom: "-5px",
+    backgroundColor: props => props.color,
+    opacity: props => (props.isDragging ? 0 : 1),
     "&:hover svg": {
       color: "white",
       transform: "scale(1.5)"

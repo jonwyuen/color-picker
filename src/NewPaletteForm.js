@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -11,9 +11,12 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
-import DraggableColorBox from "./DraggableColorBox";
+import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker } from "react-color";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import update from "immutability-helper";
 
 const drawerWidth = 400;
 
@@ -58,7 +61,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     height: "calc(100vh - 64px)",
-    padding: theme.spacing(3),
+    padding: 0,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -111,6 +114,21 @@ const NewPaletteForm = ({ palettes, savePalette, history }) => {
 
   const removeColor = colorName =>
     setColors(colors.filter(color => color.name !== colorName));
+
+  const moveColorBox = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragBox = colors[dragIndex];
+      setColors(
+        update(colors, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragBox]
+          ]
+        })
+      );
+    },
+    [colors, setColors]
+  );
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", value =>
@@ -226,14 +244,14 @@ const NewPaletteForm = ({ palettes, savePalette, history }) => {
         })}
       >
         <div className={classes.drawerHeader} />
-        {colors.map(color => (
-          <DraggableColorBox
-            color={color.color}
-            name={color.name}
-            id={color.name}
+        <DndProvider backend={HTML5Backend}>
+          <DraggableColorList
+            colors={colors}
+            setColors={setColors}
             removeColor={removeColor}
+            moveColorBox={moveColorBox}
           />
-        ))}
+        </DndProvider>
       </main>
     </div>
   );
