@@ -2,15 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
+import PaletteFormNav from "./PaletteFormNav";
 import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker } from "react-color";
@@ -83,7 +80,6 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
   const [currentColor, setCurrentColor] = useState("teal");
   const [colors, setColors] = useState(palettes[0].colors);
   const [newColorName, setNewColorName] = useState("");
-  const [newPaletteName, setNewPaletteName] = useState("");
 
   const handleDrawerOpen = () => setOpen(true);
 
@@ -99,8 +95,6 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
 
   const handleColorNameChange = e => setNewColorName(e.target.value);
 
-  const handlePaletteNameChange = e => setNewPaletteName(e.target.value);
-
   const clearColors = () => setColors([]);
 
   const paletteIsFull = colors.length >= maxColors;
@@ -112,11 +106,10 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
     setColors([...colors, randomColor]);
   };
 
-  const handleSavePalette = () => {
-    let newName = newPaletteName;
+  const handleSavePalette = newPaletteName => {
     const newPalette = {
-      paletteName: newName,
-      id: newName.toLowerCase().replace(/ /g, "-"),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
       colors
     };
     savePalette(newPalette);
@@ -150,55 +143,15 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
     );
   }, [colors, currentColor]);
 
-  useEffect(() => {
-    ValidatorForm.addValidationRule("isPaletteNameUnique", value =>
-      palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      )
-    );
-  }, [palettes]);
-
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        color="default"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Persistent drawer
-          </Typography>
-          <ValidatorForm onSubmit={handleSavePalette}>
-            <TextValidator
-              label="Palette Name"
-              name="newPaletteName"
-              value={newPaletteName}
-              onChange={handlePaletteNameChange}
-              validators={["required", "isPaletteNameUnique"]}
-              errorMessages={[
-                "Please enter a palette name",
-                "Palette name must be unique"
-              ]}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Save Palette
-            </Button>
-          </ValidatorForm>
-        </Toolbar>
-      </AppBar>
+      <PaletteFormNav
+        palettes={palettes}
+        handleSavePalette={handleSavePalette}
+        handleDrawerOpen={handleDrawerOpen}
+        classes={classes}
+        open={open}
+      />
       <Drawer
         className={classes.drawer}
         variant="persistent"
