@@ -21,6 +21,7 @@ const PaletteFormNav = ({
   const [formShowing, setFormShowing] = useState(false);
 
   const showForm = () => setFormShowing(true);
+  const hideForm = () => setFormShowing(false);
 
   return (
     <div className={classes.root}>
@@ -70,6 +71,7 @@ const PaletteFormNav = ({
         <PaletteMetaForm
           palettes={palettes}
           handleSavePalette={handleSavePalette}
+          hideForm={hideForm}
         />
       )}
     </div>

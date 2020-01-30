@@ -6,12 +6,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { Picker } from "emoji-mart";
+import "emoji-mart/css/emoji-mart.css";
 
-const PaletteMetaForm = ({ palettes, handleSavePalette }) => {
-  const [open, setOpen] = useState(true);
+const PaletteMetaForm = ({ palettes, handleSavePalette, hideForm }) => {
+  const [open] = useState(true);
   const [newPaletteName, setNewPaletteName] = useState("");
-
-  const handleClose = () => setOpen(false);
 
   const handlePaletteNameChange = e => setNewPaletteName(e.target.value);
 
@@ -24,17 +24,14 @@ const PaletteMetaForm = ({ palettes, handleSavePalette }) => {
   }, [palettes]);
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
+    <Dialog open={open} onClose={hideForm} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
       <ValidatorForm onSubmit={() => handleSavePalette(newPaletteName)}>
         <DialogContent>
           <DialogContentText>
             Please enter a unique name for your color palette.
           </DialogContentText>
+          <Picker />
           <TextValidator
             label="Palette Name"
             name="newPaletteName"
@@ -51,7 +48,7 @@ const PaletteMetaForm = ({ palettes, handleSavePalette }) => {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={hideForm} color="primary">
             Cancel
           </Button>
           <Button variant="contained" color="primary" type="submit">
