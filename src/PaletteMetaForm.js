@@ -10,10 +10,20 @@ import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 
 const PaletteMetaForm = ({ palettes, handleSavePalette, hideForm }) => {
-  const [open] = useState(true);
+  const [stage, setStage] = useState("form");
   const [newPaletteName, setNewPaletteName] = useState("");
 
   const handlePaletteNameChange = e => setNewPaletteName(e.target.value);
+
+  const showEmojiPicker = () => setStage("emoji");
+  const savePalette = emoji => {
+    const newPalette = {
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
+      emoji: emoji.native
+    };
+    handleSavePalette(newPalette);
+  };
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isPaletteNameUnique", value =>
@@ -24,39 +34,47 @@ const PaletteMetaForm = ({ palettes, handleSavePalette, hideForm }) => {
   }, [palettes]);
 
   return (
-    <Dialog open={open} onClose={hideForm} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
-      <ValidatorForm onSubmit={() => handleSavePalette(newPaletteName)}>
-        <DialogContent>
-          <DialogContentText>
-            Please enter a unique name for your color palette.
-          </DialogContentText>
-          <Picker />
-          <TextValidator
-            label="Palette Name"
-            name="newPaletteName"
-            value={newPaletteName}
-            onChange={handlePaletteNameChange}
-            fullWidth
-            margin="normal"
-            validators={["required", "isPaletteNameUnique"]}
-            errorMessages={[
-              "Please enter a palette name",
-              "Palette name must be unique"
-            ]}
-          />
-        </DialogContent>
+    <>
+      <Dialog open={stage === "emoji"} onClose={hideForm}>
+        <Picker onSelect={savePalette} />
+      </Dialog>
+      <Dialog
+        open={stage === "form"}
+        onClose={hideForm}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
+        <ValidatorForm onSubmit={showEmojiPicker}>
+          <DialogContent>
+            <DialogContentText>
+              Please enter a unique name for your color palette.
+            </DialogContentText>
+            <TextValidator
+              label="Palette Name"
+              name="newPaletteName"
+              value={newPaletteName}
+              onChange={handlePaletteNameChange}
+              fullWidth
+              margin="normal"
+              validators={["required", "isPaletteNameUnique"]}
+              errorMessages={[
+                "Please enter a palette name",
+                "Palette name must be unique"
+              ]}
+            />
+          </DialogContent>
 
-        <DialogActions>
-          <Button onClick={hideForm} color="primary">
-            Cancel
-          </Button>
-          <Button variant="contained" color="primary" type="submit">
-            Save Palette
-          </Button>
-        </DialogActions>
-      </ValidatorForm>
-    </Dialog>
+          <DialogActions>
+            <Button onClick={hideForm} color="primary">
+              Cancel
+            </Button>
+            <Button variant="contained" color="primary" type="submit">
+              Save Palette
+            </Button>
+          </DialogActions>
+        </ValidatorForm>
+      </Dialog>
+    </>
   );
 };
 

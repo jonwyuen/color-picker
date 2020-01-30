@@ -32,13 +32,8 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
     setColors([...colors, randomColor]);
   };
 
-  const handleSavePalette = newPaletteName => {
-    const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-      colors
-    };
-    savePalette(newPalette);
+  const handleSavePalette = newPalette => {
+    savePalette({ ...newPalette, colors });
     history.push("/");
   };
 
