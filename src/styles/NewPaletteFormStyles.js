@@ -5,9 +5,6 @@ export default makeStyles(theme => ({
   root: {
     display: "flex"
   },
-  hide: {
-    display: "none"
-  },
   drawer: {
     width: DRAWER_WIDTH,
     flexShrink: 0
@@ -19,6 +16,7 @@ export default makeStyles(theme => ({
   },
   drawerHeader: {
     display: "flex",
+    width: "100%",
     alignItems: "center",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
