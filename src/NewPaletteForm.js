@@ -15,7 +15,7 @@ import update from "immutability-helper";
 import useStyles from "./styles/NewPaletteFormStyles";
 
 const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
-  const classes = useStyles({ drawerWidth: 400 });
+  const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [colors, setColors] = useState(palettes[0].colors);
 

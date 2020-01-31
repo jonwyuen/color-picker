@@ -17,7 +17,7 @@ const PaletteFormNav = ({
   handleDrawerOpen,
   open
 }) => {
-  const classes = useStyles({ drawerWidth: 400 });
+  const classes = useStyles();
   const [formShowing, setFormShowing] = useState(false);
 
   const showForm = () => setFormShowing(true);
