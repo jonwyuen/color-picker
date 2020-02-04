@@ -8,12 +8,12 @@ const MiniPalette = ({
   emoji,
   colors,
   id,
-  deletePalette
+  openDialog
 }) => {
   const classes = useStyles();
   const handleDeletePalette = e => {
     e.stopPropagation();
-    deletePalette(id);
+    openDialog(id);
   };
   const miniColorBoxes = colors.map(color => (
     <div
