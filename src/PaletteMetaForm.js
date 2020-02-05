@@ -23,6 +23,7 @@ const PaletteMetaForm = ({ palettes, handleSavePalette, hideForm }) => {
       emoji: emoji.native
     };
     handleSavePalette(newPalette);
+    setStage("");
   };
 
   useEffect(() => {
