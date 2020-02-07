@@ -54,7 +54,6 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
     },
     [colors, setColors]
   );
-
   return (
     <div className={classes.root}>
       <PaletteFormNav

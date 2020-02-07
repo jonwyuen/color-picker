@@ -32,7 +32,7 @@ const PaletteList = ({ palettes, history, deletePalette }) => {
     deletePalette(deletingId);
     closeDialog();
   };
-
+  console.log("palette list");
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -45,8 +45,7 @@ const PaletteList = ({ palettes, history, deletePalette }) => {
             <CSSTransition key={palette.id} classNames="fade" timeout={500}>
               <MiniPalette
                 key={palette.id}
-                goToPalette={() => goToPalette(palette.id)}
-                // deletePalette={deletePalette}
+                goToPalette={goToPalette}
                 openDialog={openDialog}
                 {...palette}
               />
