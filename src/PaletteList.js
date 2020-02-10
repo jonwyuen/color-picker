@@ -17,7 +17,9 @@ import useStyles from "./styles/PaletteListStyles";
 
 const PaletteList = ({ palettes, history, deletePalette }) => {
   const classes = useStyles();
-  const goToPalette = id => history.push(`/palette/${id}`);
+  const goToPalette = useCallback(id => history.push(`/palette/${id}`), [
+    history
+  ]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [deletingId, setDeletingId] = useState("");
   const openDialog = useCallback(id => {
@@ -32,7 +34,6 @@ const PaletteList = ({ palettes, history, deletePalette }) => {
     deletePalette(deletingId);
     closeDialog();
   };
-
   return (
     <div className={classes.root}>
       <div className={classes.container}>
