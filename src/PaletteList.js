@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import MiniPalette from "./MiniPalette";
@@ -20,10 +20,10 @@ const PaletteList = ({ palettes, history, deletePalette }) => {
   const goToPalette = id => history.push(`/palette/${id}`);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [deletingId, setDeletingId] = useState("");
-  const openDialog = id => {
+  const openDialog = useCallback(id => {
     setOpenDeleteDialog(true);
     setDeletingId(id);
-  };
+  }, []);
   const closeDialog = () => {
     setOpenDeleteDialog(false);
     setDeletingId("");
@@ -32,7 +32,7 @@ const PaletteList = ({ palettes, history, deletePalette }) => {
     deletePalette(deletingId);
     closeDialog();
   };
-  console.log("palette list");
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>

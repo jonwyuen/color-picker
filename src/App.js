@@ -19,6 +19,7 @@ const App = () => {
   useEffect(() => {
     window.localStorage.setItem("palettes", JSON.stringify(palettes));
   }, [palettes]);
+
   return (
     <Switch>
       <Route
