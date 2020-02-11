@@ -28,8 +28,14 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
 
   const addRandomColor = () => {
     const allColors = palettes.map(p => p.colors).flat();
-    const randomNum = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[randomNum];
+    let randomNum;
+    let randomColor;
+    let isDuplicateColor = true;
+    while (isDuplicateColor) {
+      randomNum = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[randomNum];
+      isDuplicateColor = colors.some(color => color.name === randomColor.name);
+    }
     setColors([...colors, randomColor]);
   };
 

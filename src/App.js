@@ -74,6 +74,17 @@ const App = () => {
           </Page>
         )}
       />
+      <Route
+        render={routeProps => (
+          <Page {...routeProps}>
+            <PaletteList
+              {...routeProps}
+              palettes={palettes}
+              deletePalette={deletePalette}
+            />
+          </Page>
+        )}
+      />
     </Switch>
   );
 };
