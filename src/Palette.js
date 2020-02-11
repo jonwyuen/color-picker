@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import useStyles from "./styles/PaletteStyles";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
+import useStyles from "./styles/PaletteStyles";
 
 const Palette = ({ palette }) => {
   const [level, setLevel] = useState(500);

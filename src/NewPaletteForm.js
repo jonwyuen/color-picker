@@ -1,4 +1,7 @@
 import React, { useState, useCallback } from "react";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import update from "immutability-helper";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
@@ -9,9 +12,6 @@ import Button from "@material-ui/core/Button";
 import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import DraggableColorList from "./DraggableColorList";
-import { DndProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
-import update from "immutability-helper";
 import useStyles from "./styles/NewPaletteFormStyles";
 
 const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {

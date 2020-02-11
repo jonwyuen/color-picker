@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import MiniPalette from "./MiniPalette";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import List from "@material-ui/core/List";
@@ -13,6 +12,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
+import MiniPalette from "./MiniPalette";
 import useStyles from "./styles/PaletteListStyles";
 
 const PaletteList = ({ palettes, history, deletePalette }) => {
