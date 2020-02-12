@@ -40,7 +40,7 @@ const PaletteList = ({ palettes, history, deletePalette, restorePalettes }) => {
     <div className={classes.root}>
       <div className={classes.container}>
         <nav className={classes.nav}>
-          <h1 className={classes.heading}>React Colors</h1>
+          <h1 className={classes.heading}>Color Picker</h1>
           <Link to="/palette/new">Create Palette</Link>
         </nav>
         {palettes.length <= 0 && (
