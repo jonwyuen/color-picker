@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import blue from "@material-ui/core/colors/blue";
@@ -15,7 +16,7 @@ import red from "@material-ui/core/colors/red";
 import MiniPalette from "./MiniPalette";
 import useStyles from "./styles/PaletteListStyles";
 
-const PaletteList = ({ palettes, history, deletePalette }) => {
+const PaletteList = ({ palettes, history, deletePalette, restorePalettes }) => {
   const classes = useStyles();
   const goToPalette = useCallback(id => history.push(`/palette/${id}`), [
     history
@@ -34,6 +35,7 @@ const PaletteList = ({ palettes, history, deletePalette }) => {
     deletePalette(deletingId);
     closeDialog();
   };
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -41,6 +43,17 @@ const PaletteList = ({ palettes, history, deletePalette }) => {
           <h1 className={classes.heading}>React Colors</h1>
           <Link to="/palette/new">Create Palette</Link>
         </nav>
+        {palettes.length <= 0 && (
+          <div className={classes.restoreBtn}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => restorePalettes()}
+            >
+              Restore Default Palettes
+            </Button>
+          </div>
+        )}
         <TransitionGroup className={classes.palettes}>
           {palettes.map(palette => (
             <CSSTransition key={palette.id} classNames="fade" timeout={500}>

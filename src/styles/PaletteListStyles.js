@@ -62,5 +62,9 @@ export default makeStyles({
       gridTemplateColumns: "repeat(1, 100%)",
       gridGap: "1.4rem"
     }
+  },
+  restoreBtn: {
+    margin: "0 auto",
+    padding: "1rem"
   }
 });

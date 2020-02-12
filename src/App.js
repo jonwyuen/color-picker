@@ -15,6 +15,7 @@ const App = () => {
   const savePalette = newPalette => setPalettes([...palettes, newPalette]);
   const deletePalette = id =>
     setPalettes(palettes => palettes.filter(palette => palette.id !== id));
+  const restorePalettes = () => setPalettes(seedColors);
 
   useEffect(() => {
     window.localStorage.setItem("palettes", JSON.stringify(palettes));
@@ -44,6 +45,7 @@ const App = () => {
               {...routeProps}
               palettes={palettes}
               deletePalette={deletePalette}
+              restorePalettes={restorePalettes}
             />
           </Page>
         )}
@@ -81,6 +83,7 @@ const App = () => {
               {...routeProps}
               palettes={palettes}
               deletePalette={deletePalette}
+              restorePalettes={restorePalettes}
             />
           </Page>
         )}
