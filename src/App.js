@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import Palette from "./Palette";
-import PaletteList from "./PaletteList";
-import SingleColorPalette from "./SingleColorPalette";
-import NewPaletteFrom from "./NewPaletteForm";
-import Page from "./Page";
+import Palette from "./components/Palette";
+import PaletteList from "./components/PaletteList";
+import SingleColorPalette from "./components/SingleColorPalette";
+import NewPaletteFrom from "./components/NewPaletteForm";
+import Page from "./components/Page";
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 

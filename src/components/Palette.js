@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
-import useStyles from "./styles/PaletteStyles";
+import useStyles from "../styles/PaletteStyles";
 
 const Palette = ({ palette }) => {
   const [level, setLevel] = useState(500);

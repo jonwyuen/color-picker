@@ -14,7 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
 import MiniPalette from "./MiniPalette";
-import useStyles from "./styles/PaletteListStyles";
+import useStyles from "../styles/PaletteListStyles";
 
 const PaletteList = ({ palettes, history, deletePalette, restorePalettes }) => {
   const classes = useStyles();

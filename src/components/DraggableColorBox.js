@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import DeleteIcon from "@material-ui/icons/Delete";
-import useStyles from "./styles/DraggableColorBoxStyles";
+import useStyles from "../styles/DraggableColorBoxStyles";
 
 const ItemTypes = {
   BOX: "box"

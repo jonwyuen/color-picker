@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import PaletteMetaForm from "./PaletteMetaForm";
-import useStyles from "./styles/PaletteFormNavStyles";
+import useStyles from "../styles/PaletteFormNavStyles";
 
 const PaletteFormNav = ({
   palettes,

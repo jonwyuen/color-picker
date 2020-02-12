@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
-import useStyles from "./styles/MiniPaletteStyles";
+import useStyles from "../styles/MiniPaletteStyles";
 
 const MiniPalette = memo(
   ({ paletteName, goToPalette, emoji, colors, id, openDialog }) => {

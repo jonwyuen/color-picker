@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import ColorBox from "./ColorBox";
 import PaletteFooter from "./PaletteFooter";
-import useStyles from "./styles/PaletteStyles";
+import useStyles from "../styles/PaletteStyles";
 
 const SingleColorPalette = ({ palette, colorId }) => {
   const [format, setFormat] = useState("hex");
