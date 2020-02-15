@@ -6,6 +6,7 @@ import SingleColorPalette from "./components/SingleColorPalette";
 import NewPaletteFrom from "./components/NewPaletteForm";
 import Page from "./components/Page";
 import seedColors from "./seedColors";
+import { PalettesProvider } from "./context/PalettesContext";
 import { generatePalette } from "./colorHelpers";
 
 const App = () => {
@@ -41,12 +42,14 @@ const App = () => {
         path="/"
         render={routeProps => (
           <Page {...routeProps}>
-            <PaletteList
-              {...routeProps}
-              palettes={palettes}
-              deletePalette={deletePalette}
-              restorePalettes={restorePalettes}
-            />
+            <PalettesProvider>
+              <PaletteList
+                {...routeProps}
+                palettes={palettes}
+                deletePalette={deletePalette}
+                restorePalettes={restorePalettes}
+              />
+            </PalettesProvider>
           </Page>
         )}
       />

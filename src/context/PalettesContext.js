@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import SAVED_PALETTES from "../constants";
+import { SAVED_PALETTES } from "../constants";
 
 export const PalettesContext = createContext();
 export const PalettesDispatchContext = createContext();
@@ -11,7 +11,7 @@ const reducer = (state, action) => {
     case "DELETE_PALETTE":
       return state.filter(p => p.id !== action.id);
     case "RESTORE_PALETTES":
-      return [...state, SAVED_PALETTES];
+      return [...state].concat(SAVED_PALETTES);
     default:
       return state;
   }

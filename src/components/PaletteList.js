@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,15 +14,22 @@ import CloseIcon from "@material-ui/icons/Close";
 import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
 import MiniPalette from "./MiniPalette";
+import {
+  PalettesContext,
+  PalettesDispatchContext
+} from "../context/PalettesContext";
 import useStyles from "../styles/PaletteListStyles";
 
-const PaletteList = ({ palettes, history, deletePalette, restorePalettes }) => {
+const PaletteList = ({ history, restorePalettes }) => {
   const classes = useStyles();
+  const palettes = useContext(PalettesContext);
+  const dispatch = useContext(PalettesDispatchContext);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [deletingId, setDeletingId] = useState("");
   const goToPalette = useCallback(id => history.push(`/palette/${id}`), [
     history
   ]);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [deletingId, setDeletingId] = useState("");
+
   const openDialog = useCallback(id => {
     setOpenDeleteDialog(true);
     setDeletingId(id);
@@ -32,7 +39,8 @@ const PaletteList = ({ palettes, history, deletePalette, restorePalettes }) => {
     setDeletingId("");
   };
   const handleDeletePalette = () => {
-    deletePalette(deletingId);
+    dispatch({ type: "DELETE_PALETTE", id: deletingId });
+    // deletePalette(deletingId);
     closeDialog();
   };
 
@@ -48,7 +56,7 @@ const PaletteList = ({ palettes, history, deletePalette, restorePalettes }) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => restorePalettes()}
+              onClick={() => dispatch({ type: "RESTORE_PALETTES" })}
             >
               Restore Default Palettes
             </Button>
