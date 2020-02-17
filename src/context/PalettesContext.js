@@ -1,8 +1,9 @@
 import React, { createContext, useEffect, useReducer } from "react";
+import seedColors from "../seedColors";
 import { SAVED_PALETTES } from "../constants";
 
 export const PalettesContext = createContext();
-export const PalettesDispatchContext = createContext();
+export const DispatchContext = createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -11,7 +12,7 @@ const reducer = (state, action) => {
     case "DELETE_PALETTE":
       return state.filter(p => p.id !== action.id);
     case "RESTORE_PALETTES":
-      return [...state].concat(SAVED_PALETTES);
+      return [...state, ...seedColors];
     default:
       return state;
   }
@@ -19,16 +20,16 @@ const reducer = (state, action) => {
 
 export const PalettesProvider = ({ children }) => {
   const [palettes, dispatch] = useReducer(reducer, SAVED_PALETTES);
-
+  console.log(palettes);
   useEffect(() => {
     window.localStorage.setItem("palettes", JSON.stringify(palettes));
   }, [palettes]);
 
   return (
     <PalettesContext.Provider value={palettes}>
-      <PalettesDispatchContext.Provider value={dispatch}>
+      <DispatchContext.Provider value={dispatch}>
         {children}
-      </PalettesDispatchContext.Provider>
+      </DispatchContext.Provider>
     </PalettesContext.Provider>
   );
 };

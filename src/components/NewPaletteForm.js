@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import update from "immutability-helper";
@@ -13,12 +13,15 @@ import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import DraggableColorList from "./DraggableColorList";
 import seedColors from "../seedColors";
+import { PalettesContext, DispatchContext } from "../context/PalettesContext";
 import useStyles from "../styles/NewPaletteFormStyles";
 
-const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
+const NewPaletteForm = ({ history, maxColors = 20 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [colors, setColors] = useState(seedColors[0].colors);
+  const palettes = useContext(PalettesContext);
+  const dispatch = useContext(DispatchContext);
 
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
@@ -40,7 +43,8 @@ const NewPaletteForm = ({ palettes, savePalette, history, maxColors = 20 }) => {
   };
 
   const handleSavePalette = newPalette => {
-    savePalette({ ...newPalette, colors });
+    dispatch({ type: "ADD_PALETTE", newPalette: { ...newPalette, colors } });
+    // savePalette({ ...newPalette, colors });
     history.push("/");
   };
 

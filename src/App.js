@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Palette from "./components/Palette";
 import PaletteList from "./components/PaletteList";
 import SingleColorPalette from "./components/SingleColorPalette";
-import NewPaletteFrom from "./components/NewPaletteForm";
+import NewPaletteForm from "./components/NewPaletteForm";
 import Page from "./components/Page";
 import seedColors from "./seedColors";
 import { PalettesProvider } from "./context/PalettesContext";
@@ -13,14 +13,11 @@ const App = () => {
   const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
   const [palettes, setPalettes] = useState(savedPalettes || seedColors);
   const findPalette = id => palettes.find(palette => palette.id === id);
-  const savePalette = newPalette => setPalettes([...palettes, newPalette]);
-  const deletePalette = id =>
-    setPalettes(palettes => palettes.filter(palette => palette.id !== id));
-  const restorePalettes = () => setPalettes(seedColors);
+  // const savePalette = newPalette => setPalettes([...palettes, newPalette]);
 
-  useEffect(() => {
-    window.localStorage.setItem("palettes", JSON.stringify(palettes));
-  }, [palettes]);
+  // useEffect(() => {
+  //   window.localStorage.setItem("palettes", JSON.stringify(palettes));
+  // }, [palettes]);
 
   return (
     <Switch>
@@ -28,29 +25,22 @@ const App = () => {
         exact
         path="/palette/new"
         render={routeProps => (
-          <Page {...routeProps}>
-            <NewPaletteFrom
-              {...routeProps}
-              palettes={palettes}
-              savePalette={savePalette}
-            />
-          </Page>
+          <PalettesProvider>
+            <Page {...routeProps}>
+              <NewPaletteForm {...routeProps} />
+            </Page>
+          </PalettesProvider>
         )}
       />
       <Route
         exact
         path="/"
         render={routeProps => (
-          <Page {...routeProps}>
-            <PalettesProvider>
-              <PaletteList
-                {...routeProps}
-                palettes={palettes}
-                deletePalette={deletePalette}
-                restorePalettes={restorePalettes}
-              />
-            </PalettesProvider>
-          </Page>
+          <PalettesProvider>
+            <Page {...routeProps}>
+              <PaletteList {...routeProps} />
+            </Page>
+          </PalettesProvider>
         )}
       />
       <Route
@@ -82,12 +72,9 @@ const App = () => {
       <Route
         render={routeProps => (
           <Page {...routeProps}>
-            <PaletteList
-              {...routeProps}
-              palettes={palettes}
-              deletePalette={deletePalette}
-              restorePalettes={restorePalettes}
-            />
+            <PalettesProvider>
+              <PaletteList {...routeProps} />
+            </PalettesProvider>
           </Page>
         )}
       />
