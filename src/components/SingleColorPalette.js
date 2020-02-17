@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import ColorBox from "./ColorBox";
 import PaletteFooter from "./PaletteFooter";
+import { generatePalette } from "../colorHelpers";
+import { PalettesContext } from "../context/PalettesContext";
 import useStyles from "../styles/PaletteStyles";
 
-const SingleColorPalette = ({ palette, colorId }) => {
+const SingleColorPalette = ({ match }) => {
   const [format, setFormat] = useState("hex");
-  const { paletteName, emoji, id } = palette;
   const classes = useStyles();
+  const palettes = useContext(PalettesContext);
+  const findPalette = id => palettes.find(palette => palette.id === id);
+  const colorId = match.params.colorId;
+  const palette = generatePalette(findPalette(match.params.paletteId));
+  const { paletteName, emoji, id } = palette;
+
   const gatherShades = (palette, colorToFilterBy) => {
     let shades = [];
     let allColors = palette.colors;
