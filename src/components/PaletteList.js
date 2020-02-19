@@ -38,7 +38,7 @@ const PaletteList = ({ history }) => {
     dispatch({ type: "DELETE_PALETTE", id: deletingId });
     closeDialog();
   };
-  console.log(palettes);
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>

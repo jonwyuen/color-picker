@@ -2,7 +2,7 @@ import React from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../styles/Page.css";
 
-const Page = ({ children, location }) => {
+const Page = ({ location, children }) => {
   return (
     <TransitionGroup>
       <CSSTransition key={location.key} classNames="fade" timeout={500}>

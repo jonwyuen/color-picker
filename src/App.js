@@ -21,6 +21,7 @@ const App = () => {
           </PalettesProvider>
         )}
       />
+
       <Route
         exact
         path="/"
@@ -32,6 +33,7 @@ const App = () => {
           </PalettesProvider>
         )}
       />
+
       <Route
         exact
         path="/palette/:id"
@@ -43,6 +45,7 @@ const App = () => {
           </PalettesProvider>
         )}
       />
+
       <Route
         exact
         path="/palette/:paletteId/:colorId"
@@ -54,13 +57,16 @@ const App = () => {
           </PalettesProvider>
         )}
       />
+
       <Route
+        exact
+        path="/"
         render={routeProps => (
-          <Page {...routeProps}>
-            <PalettesProvider>
+          <PalettesProvider>
+            <Page {...routeProps}>
               <PaletteList {...routeProps} />
-            </PalettesProvider>
-          </Page>
+            </Page>
+          </PalettesProvider>
         )}
       />
     </Switch>

@@ -20,7 +20,6 @@ const reducer = (state, action) => {
 
 export const PalettesProvider = ({ children }) => {
   const [palettes, dispatch] = useReducer(reducer, SAVED_PALETTES);
-  console.log(palettes);
   useEffect(() => {
     window.localStorage.setItem("palettes", JSON.stringify(palettes));
   }, [palettes]);

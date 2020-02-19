@@ -10,10 +10,11 @@ const Palette = ({ match }) => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState("hex");
   const classes = useStyles();
+  const { id } = match.params;
   const palettes = useContext(PalettesContext);
   const findPalette = id => palettes.find(palette => palette.id === id);
-  const palette = generatePalette(findPalette(match.params.id));
-  const { colors, paletteName, emoji, id } = palette;
+  const palette = generatePalette(findPalette(id));
+  const { colors, paletteName, emoji } = palette;
   const colorBoxes = colors[level].map(color => (
     <ColorBox
       background={color[format]}
@@ -26,6 +27,7 @@ const Palette = ({ match }) => {
   ));
   const changeLevel = newLevel => setLevel(newLevel);
   const changeFormat = val => setFormat(val);
+
   return (
     <div className={classes.Palette}>
       <Navbar

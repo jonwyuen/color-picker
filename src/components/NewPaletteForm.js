@@ -44,7 +44,6 @@ const NewPaletteForm = ({ history, maxColors = 20 }) => {
 
   const handleSavePalette = newPalette => {
     dispatch({ type: "ADD_PALETTE", newPalette: { ...newPalette, colors } });
-    // savePalette({ ...newPalette, colors });
     history.push("/");
   };
 
@@ -65,6 +64,7 @@ const NewPaletteForm = ({ history, maxColors = 20 }) => {
     },
     [colors, setColors]
   );
+
   return (
     <div className={classes.root}>
       <PaletteFormNav

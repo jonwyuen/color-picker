@@ -12,8 +12,9 @@ const SingleColorPalette = ({ match }) => {
   const classes = useStyles();
   const palettes = useContext(PalettesContext);
   const findPalette = id => palettes.find(palette => palette.id === id);
-  const colorId = match.params.colorId;
-  const palette = generatePalette(findPalette(match.params.paletteId));
+  const { paletteId, colorId } = match.params;
+  const palette = generatePalette(findPalette(paletteId));
+
   const { paletteName, emoji, id } = palette;
 
   const gatherShades = (palette, colorToFilterBy) => {
@@ -39,6 +40,7 @@ const SingleColorPalette = ({ match }) => {
       showingFullPalette={false}
     />
   ));
+
   return (
     <div className={classes.Palette}>
       <Navbar changeFormat={changeFormat} showingAllColors={false} />
