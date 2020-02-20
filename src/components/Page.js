@@ -12,4 +12,4 @@ const Page = ({ location, children }) => {
   );
 };
 
-export default Page;
+export default React.memo(Page);
