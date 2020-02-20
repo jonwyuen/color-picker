@@ -14,6 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
 import MiniPalette from "./MiniPalette";
+import useToggleState from "../hooks/useToggleState";
 import { PalettesContext, DispatchContext } from "../context/PalettesContext";
 import useStyles from "../styles/PaletteListStyles";
 
@@ -21,24 +22,24 @@ const PaletteList = ({ history }) => {
   const classes = useStyles();
   const palettes = useContext(PalettesContext);
   const dispatch = useContext(DispatchContext);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [dialogOpen, toggleDialog] = useToggleState(false);
   const [deletingId, setDeletingId] = useState("");
   const goToPalette = useCallback(id => history.push(`/palette/${id}`), [
     history
   ]);
   const openDialog = useCallback(id => {
-    setOpenDeleteDialog(true);
+    toggleDialog();
     setDeletingId(id);
   }, []);
   const closeDialog = () => {
-    setOpenDeleteDialog(false);
+    toggleDialog();
     setDeletingId("");
   };
   const handleDeletePalette = () => {
     dispatch({ type: "DELETE_PALETTE", id: deletingId });
     closeDialog();
   };
-
+  console.log("PL");
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -71,7 +72,7 @@ const PaletteList = ({ history }) => {
         </TransitionGroup>
       </div>
       <Dialog
-        open={openDeleteDialog}
+        open={dialogOpen}
         aria-labelledby="delete-dialog-title"
         onClose={closeDialog}
       >

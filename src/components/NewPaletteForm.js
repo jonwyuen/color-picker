@@ -13,18 +13,16 @@ import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import DraggableColorList from "./DraggableColorList";
 import seedColors from "../seedColors";
+import useToggleState from "../hooks/useToggleState";
 import { PalettesContext, DispatchContext } from "../context/PalettesContext";
 import useStyles from "../styles/NewPaletteFormStyles";
 
 const NewPaletteForm = ({ history, maxColors = 20 }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [drawerOpen, toggleDrawer] = useToggleState(true);
   const [colors, setColors] = useState(seedColors[0].colors);
   const palettes = useContext(PalettesContext);
   const dispatch = useContext(DispatchContext);
-
-  const handleDrawerOpen = () => setOpen(true);
-  const handleDrawerClose = () => setOpen(false);
   const addNewColor = newColor => setColors([...colors, newColor]);
   const clearColors = () => setColors([]);
   const paletteIsFull = colors.length >= maxColors;
@@ -70,21 +68,21 @@ const NewPaletteForm = ({ history, maxColors = 20 }) => {
       <PaletteFormNav
         palettes={palettes}
         handleSavePalette={handleSavePalette}
-        handleDrawerOpen={handleDrawerOpen}
+        handleDrawerOpen={toggleDrawer}
         classes={classes}
-        open={open}
+        drawerOpen={drawerOpen}
       />
       <Drawer
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={drawerOpen}
         classes={{
           paper: classes.drawerPaper
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
           </IconButton>
         </div>
@@ -121,7 +119,7 @@ const NewPaletteForm = ({ history, maxColors = 20 }) => {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open
+          [classes.contentShift]: drawerOpen
         })}
       >
         <div className={classes.drawerHeader} />

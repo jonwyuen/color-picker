@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,20 +9,17 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import PaletteMetaForm from "./PaletteMetaForm";
+import useToggleState from "../hooks/useToggleState";
 import useStyles from "../styles/PaletteFormNavStyles";
 
 const PaletteFormNav = ({
   palettes,
   handleSavePalette,
   handleDrawerOpen,
-  open
+  drawerOpen
 }) => {
   const classes = useStyles();
-  const [formShowing, setFormShowing] = useState(false);
-
-  const showForm = () => setFormShowing(true);
-  const hideForm = () => setFormShowing(false);
-
+  const [formShowing, toggleForm] = useToggleState(false);
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -30,7 +27,7 @@ const PaletteFormNav = ({
         position="fixed"
         color="default"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
+          [classes.appBarShift]: drawerOpen
         })}
       >
         <Toolbar>
@@ -39,7 +36,7 @@ const PaletteFormNav = ({
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, { [classes.hide]: open })}
+            className={clsx(classes.menuButton, { [classes.hide]: drawerOpen })}
           >
             <ChevronRightIcon />
           </IconButton>
@@ -61,7 +58,7 @@ const PaletteFormNav = ({
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={showForm}
+            onClick={toggleForm}
           >
             Save
           </Button>
@@ -71,7 +68,7 @@ const PaletteFormNav = ({
         <PaletteMetaForm
           palettes={palettes}
           handleSavePalette={handleSavePalette}
-          hideForm={hideForm}
+          hideForm={toggleForm}
         />
       )}
     </div>

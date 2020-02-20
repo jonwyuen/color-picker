@@ -20,7 +20,7 @@ export default makeStyles({
     /* background by SVGBackgrounds.com */
     backgroundColor: "#47b9ff",
     backgroundImage: `url(${bg})`,
-    overflow: "scroll"
+    overflow: "auto"
   },
   heading: {
     fontSize: "2rem"
@@ -52,6 +52,7 @@ export default makeStyles({
   palettes: {
     boxSizing: "border-box",
     width: "100%",
+    marginBottom: "2.5rem",
     display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
     gridGap: "2.5rem",
@@ -60,7 +61,8 @@ export default makeStyles({
     },
     [sizes.down("xs")]: {
       gridTemplateColumns: "repeat(1, 100%)",
-      gridGap: "1.4rem"
+      gridGap: "1.4rem",
+      marginBottom: "1.4rem"
     }
   },
   restoreBtn: {
