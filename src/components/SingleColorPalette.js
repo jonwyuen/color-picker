@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import ColorBox from "./ColorBox";
 import PaletteFooter from "./PaletteFooter";
-import { generatePalette } from "../colorHelpers";
+import { findPalette, generatePalette } from "../colorHelpers";
 import { PalettesContext } from "../context/PalettesContext";
 import useStyles from "../styles/PaletteStyles";
 
@@ -11,9 +11,8 @@ const SingleColorPalette = ({ match }) => {
   const [format, setFormat] = useState("hex");
   const classes = useStyles();
   const palettes = useContext(PalettesContext);
-  const findPalette = id => palettes.find(palette => palette.id === id);
   const { paletteId, colorId } = match.params;
-  const palette = generatePalette(findPalette(paletteId));
+  const palette = generatePalette(findPalette(palettes, paletteId));
 
   const { paletteName, emoji, id } = palette;
 

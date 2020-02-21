@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
-import { generatePalette } from "../colorHelpers";
+import { findPalette, generatePalette } from "../colorHelpers";
 import { PalettesContext } from "../context/PalettesContext";
 import useStyles from "../styles/PaletteStyles";
 
@@ -12,8 +12,7 @@ const Palette = ({ match }) => {
   const classes = useStyles();
   const { id } = match.params;
   const palettes = useContext(PalettesContext);
-  const findPalette = id => palettes.find(palette => palette.id === id);
-  const palette = generatePalette(findPalette(id));
+  const palette = generatePalette(findPalette(palettes, id));
   const { colors, paletteName, emoji } = palette;
   const colorBoxes = colors[level].map(color => (
     <ColorBox
