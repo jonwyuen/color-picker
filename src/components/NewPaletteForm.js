@@ -26,6 +26,8 @@ const NewPaletteForm = ({ history, maxColors = 20 }) => {
   const addNewColor = newColor => setColors([...colors, newColor]);
   const clearColors = () => setColors([]);
   const paletteIsFull = colors.length >= maxColors;
+  const checkDuplicateColor = (colors, colorToCheck) =>
+    colors.some(color => color.name === colorToCheck.name);
 
   const addRandomColor = () => {
     const allColors = palettes.map(p => p.colors).flat();
@@ -35,7 +37,7 @@ const NewPaletteForm = ({ history, maxColors = 20 }) => {
     while (isDuplicateColor) {
       randomNum = Math.floor(Math.random() * allColors.length);
       randomColor = allColors[randomNum];
-      isDuplicateColor = colors.some(color => color.name === randomColor.name);
+      isDuplicateColor = checkDuplicateColor(colors, randomColor);
     }
     setColors([...colors, randomColor]);
   };
