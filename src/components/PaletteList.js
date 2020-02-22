@@ -27,10 +27,13 @@ const PaletteList = ({ history }) => {
   const goToPalette = useCallback(id => history.push(`/palette/${id}`), [
     history
   ]);
-  const openDialog = useCallback(id => {
-    toggleDialog();
-    setDeletingId(id);
-  }, []);
+  const openDialog = useCallback(
+    id => {
+      toggleDialog();
+      setDeletingId(id);
+    },
+    [toggleDialog]
+  );
   const closeDialog = () => {
     toggleDialog();
     setDeletingId("");
