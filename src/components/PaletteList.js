@@ -16,6 +16,7 @@ import red from "@material-ui/core/colors/red";
 import MiniPalette from "./MiniPalette";
 import useToggleState from "../hooks/useToggleState";
 import { PalettesContext, DispatchContext } from "../context/PalettesContext";
+import { DELETE_PALETTE, RESTORE_PALETTES } from "../constants";
 import useStyles from "../styles/PaletteListStyles";
 
 const PaletteList = ({ history }) => {
@@ -39,7 +40,7 @@ const PaletteList = ({ history }) => {
     setDeletingId("");
   };
   const handleDeletePalette = () => {
-    dispatch({ type: "DELETE_PALETTE", id: deletingId });
+    dispatch({ type: DELETE_PALETTE, id: deletingId });
     closeDialog();
   };
 
@@ -55,7 +56,7 @@ const PaletteList = ({ history }) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => dispatch({ type: "RESTORE_PALETTES" })}
+              onClick={() => dispatch({ type: RESTORE_PALETTES })}
             >
               Restore Default Palettes
             </Button>

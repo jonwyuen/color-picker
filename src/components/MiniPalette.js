@@ -17,7 +17,6 @@ const MiniPalette = memo(
         style={{ backgroundColor: color.color }}
       ></div>
     ));
-
     return (
       <div className={classes.root} onClick={handleClick}>
         <DeleteIcon
