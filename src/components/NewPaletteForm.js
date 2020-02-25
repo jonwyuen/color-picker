@@ -16,7 +16,6 @@ import seedColors from "../seedColors";
 import useToggleState from "../hooks/useToggleState";
 import { PalettesContext, DispatchContext } from "../context/PalettesContext";
 import { ADD_PALETTE } from "../constants";
-
 import useStyles from "../styles/NewPaletteFormStyles";
 
 const NewPaletteForm = ({ history, maxColors = 20 }) => {

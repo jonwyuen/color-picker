@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,15 +10,16 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import PaletteMetaForm from "./PaletteMetaForm";
 import useToggleState from "../hooks/useToggleState";
+import { PalettesContext } from "../context/PalettesContext";
 import useStyles from "../styles/PaletteFormNavStyles";
 
 const PaletteFormNav = ({
-  palettes,
   handleSavePalette,
   handleDrawerOpen,
   drawerOpen
 }) => {
   const classes = useStyles();
+  const palettes = useContext(PalettesContext);
   const [formShowing, toggleForm] = useToggleState(false);
   return (
     <div className={classes.root}>
