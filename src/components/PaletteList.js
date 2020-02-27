@@ -16,11 +16,13 @@ import red from "@material-ui/core/colors/red";
 import MiniPalette from "./MiniPalette";
 import useToggleState from "../hooks/useToggleState";
 import { PalettesContext, DispatchContext } from "../context/PalettesContext";
+import { HistoryContext } from "../context/HistoryContext";
 import { DELETE_PALETTE, RESTORE_PALETTES } from "../constants";
 import useStyles from "../styles/PaletteListStyles";
 
-const PaletteList = ({ history }) => {
+const PaletteList = () => {
   const classes = useStyles();
+  const history = useContext(HistoryContext);
   const palettes = useContext(PalettesContext);
   const dispatch = useContext(DispatchContext);
   const [dialogOpen, toggleDialog] = useToggleState(false);
@@ -43,7 +45,7 @@ const PaletteList = ({ history }) => {
     dispatch({ type: DELETE_PALETTE, id: deletingId });
     closeDialog();
   };
-
+  console.log("PL");
   return (
     <div className={classes.root}>
       <div className={classes.container}>

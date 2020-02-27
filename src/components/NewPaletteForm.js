@@ -15,11 +15,13 @@ import DraggableColorList from "./DraggableColorList";
 import seedColors from "../seedColors";
 import useToggleState from "../hooks/useToggleState";
 import { PalettesContext, DispatchContext } from "../context/PalettesContext";
+import { HistoryContext } from "../context/HistoryContext";
 import { ADD_PALETTE } from "../constants";
 import useStyles from "../styles/NewPaletteFormStyles";
 
-const NewPaletteForm = ({ history, maxColors = 20 }) => {
+const NewPaletteForm = ({ maxColors = 20 }) => {
   const classes = useStyles();
+  const history = useContext(HistoryContext);
   const [drawerOpen, toggleDrawer] = useToggleState(true);
   const [colors, setColors] = useState(seedColors[0].colors);
   const palettes = useContext(PalettesContext);
@@ -65,14 +67,12 @@ const NewPaletteForm = ({ history, maxColors = 20 }) => {
     },
     [colors, setColors]
   );
-
+  console.log("NPF");
   return (
     <div className={classes.root}>
       <PaletteFormNav
-        palettes={palettes}
         handleSavePalette={handleSavePalette}
         handleDrawerOpen={toggleDrawer}
-        classes={classes}
         drawerOpen={drawerOpen}
       />
       <Drawer

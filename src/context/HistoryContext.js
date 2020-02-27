@@ -1,0 +1,14 @@
+import React, { createContext } from "react";
+import { useHistory } from "react-router-dom";
+
+export const HistoryContext = createContext();
+
+export const HistoryProvider = ({ children }) => {
+  const history = useHistory();
+
+  return (
+    <HistoryContext.Provider value={history}>
+      {children}
+    </HistoryContext.Provider>
+  );
+};
