@@ -10,7 +10,6 @@ export const PalettesProvider = ({ children }) => {
   useEffect(() => {
     window.localStorage.setItem("palettes", JSON.stringify(palettes));
   }, [palettes]);
-
   return (
     <PalettesContext.Provider value={palettes}>
       <DispatchContext.Provider value={dispatch}>

@@ -67,7 +67,7 @@ const NewPaletteForm = ({ maxColors = 20 }) => {
     },
     [colors, setColors]
   );
-  console.log("NPF");
+
   return (
     <div className={classes.root}>
       <PaletteFormNav

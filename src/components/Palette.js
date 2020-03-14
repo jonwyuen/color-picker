@@ -26,7 +26,7 @@ const Palette = ({ match }) => {
   ));
   const changeLevel = newLevel => setLevel(newLevel);
   const changeFormat = val => setFormat(val);
-  console.log("Palette");
+
   return (
     <div className={classes.Palette}>
       <Navbar

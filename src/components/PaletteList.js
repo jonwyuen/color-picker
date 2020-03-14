@@ -45,7 +45,7 @@ const PaletteList = () => {
     dispatch({ type: DELETE_PALETTE, id: deletingId });
     closeDialog();
   };
-  console.log("PL");
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>

@@ -6,34 +6,28 @@ import SingleColorPalette from "./components/SingleColorPalette";
 import NewPaletteForm from "./components/NewPaletteForm";
 import Page from "./components/Page";
 import { PalettesProvider } from "./context/PalettesContext";
-import { HistoryProvider } from "./context/HistoryContext";
 
 const App = () => {
-  console.log("App");
   return (
-    <HistoryProvider>
+    <PalettesProvider>
       <Switch>
         <Route
           exact
           path="/palette/new"
-          render={routeProps => (
-            <PalettesProvider>
-              <Page {...routeProps}>
-                <NewPaletteForm {...routeProps} />
-              </Page>
-            </PalettesProvider>
+          render={() => (
+            <Page>
+              <NewPaletteForm />
+            </Page>
           )}
         />
 
         <Route
           exact
           path="/"
-          render={routeProps => (
-            <PalettesProvider>
-              <Page {...routeProps}>
-                <PaletteList {...routeProps} />
-              </Page>
-            </PalettesProvider>
+          render={() => (
+            <Page>
+              <PaletteList />
+            </Page>
           )}
         />
 
@@ -41,11 +35,9 @@ const App = () => {
           exact
           path="/palette/:id"
           render={routeProps => (
-            <PalettesProvider>
-              <Page {...routeProps}>
-                <Palette {...routeProps} />
-              </Page>
-            </PalettesProvider>
+            <Page>
+              <Palette {...routeProps} />
+            </Page>
           )}
         />
 
@@ -53,27 +45,23 @@ const App = () => {
           exact
           path="/palette/:paletteId/:colorId"
           render={routeProps => (
-            <PalettesProvider>
-              <Page {...routeProps}>
-                <SingleColorPalette {...routeProps} />
-              </Page>
-            </PalettesProvider>
+            <Page>
+              <SingleColorPalette {...routeProps} />
+            </Page>
           )}
         />
 
         <Route
           exact
           path="/"
-          render={routeProps => (
-            <PalettesProvider>
-              <Page {...routeProps}>
-                <PaletteList {...routeProps} />
-              </Page>
-            </PalettesProvider>
+          render={() => (
+            <Page>
+              <PaletteList />
+            </Page>
           )}
         />
       </Switch>
-    </HistoryProvider>
+    </PalettesProvider>
   );
 };
 
